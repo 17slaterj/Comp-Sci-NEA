@@ -37,20 +37,26 @@ while True:
 			pygame.quit()
 			exit()
 
+	### DELETE ###
+	import time
+	if player_rectangle.bottom > placeholder_ground_rectangle.top:
+		time.sleep(1)
+	### DELETE END ###
+	
+	# Player physics
+	if player_rectangle.bottom < placeholder_ground_rectangle.top:
+		player_vert_vel += player_vert_acc
+		player_rectangle.y += player_vert_vel
+	if player_rectangle.bottom > placeholder_ground_rectangle.top:
+		player_rectangle.bottom = placeholder_ground_rectangle.top
+		player_vert_vel = 0
+
 
 	# Render surfaces
 	window.fill((0,0,0))
 	window.blit(placeholder_ground_surface, placeholder_ground_rectangle)
 	window.blit(player_surface, player_rectangle)
 
-
-	# Player physics
-	if player_rectangle.bottom >= placeholder_ground_rectangle.top:
-		player_rectangle.bottom = placeholder_ground_rectangle.top
-		player_vert_vel = 0
-	else:
-		player_vert_vel += player_vert_acc
-		player_rectangle.y += player_vert_vel
 
 
 	# Update display
