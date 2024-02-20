@@ -24,7 +24,7 @@ player_surface.fill((0,255,0))
 player_rectangle = player_surface.get_rect(center = (resolution[0]/2,resolution[1]/2))
 
 player_vert_vel = 0
-player_vert_acc = 0.3
+player_vert_acc = 0.9
 
 
 
@@ -32,21 +32,21 @@ player_vert_acc = 0.3
 while True:
 	# Event loop
 	for event in pygame.event.get():
+		if event.type == pygame.KEYDOWN:
+			# Jump
+			if event.key == pygame.K_SPACE:
+				player_vert_vel = -20
+
 		# Quit game
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			exit()
-
-	### DELETE ###
-	import time
-	if player_rectangle.bottom > placeholder_ground_rectangle.top:
-		time.sleep(1)
-	### DELETE END ###
+		
 	
 	# Player physics
-	if player_rectangle.bottom < placeholder_ground_rectangle.top:
-		player_vert_vel += player_vert_acc
-		player_rectangle.y += player_vert_vel
+	#if player_rectangle.bottom < placeholder_ground_rectangle.top:
+	player_vert_vel += player_vert_acc
+	player_rectangle.y += player_vert_vel
 	if player_rectangle.bottom > placeholder_ground_rectangle.top:
 		player_rectangle.bottom = placeholder_ground_rectangle.top
 		player_vert_vel = 0
