@@ -30,8 +30,8 @@ player_vert_acc = 0.3
 
 # Main loop
 while True:
-  # Event loop
-  for event in pygame.event.get():
+	# Event loop
+	for event in pygame.event.get():
 		# Quit game
 		if event.type == pygame.QUIT:
 			pygame.quit()
