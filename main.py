@@ -8,6 +8,7 @@ resolution = (1920,1080)
 
 pygame.init()
 window = pygame.display.set_mode(resolution)
+pygame.display.set_caption("Cave game") # Placeholder game name
 clock = pygame.Clock()
 
 
@@ -34,7 +35,7 @@ while True:
 	for event in pygame.event.get():
 		if event.type == pygame.KEYDOWN:
 			# Jump
-			if event.key == pygame.K_SPACE:
+			if event.key == pygame.K_SPACE and player_rectangle.bottom == placeholder_ground_rectangle.top:
 				player_vert_vel = -20
 
 		# Quit game
@@ -44,7 +45,6 @@ while True:
 		
 	
 	# Player physics
-	#if player_rectangle.bottom < placeholder_ground_rectangle.top:
 	player_vert_vel += player_vert_acc
 	player_rectangle.y += player_vert_vel
 	if player_rectangle.bottom > placeholder_ground_rectangle.top:
