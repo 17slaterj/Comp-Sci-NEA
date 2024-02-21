@@ -36,7 +36,10 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			# Jump
 			if event.key == pygame.K_SPACE and player_rectangle.bottom == placeholder_ground_rectangle.top:
-				player_vert_vel = -20
+				player_vert_vel = -20 
+			# Move left
+			if event.key == pygame.K_s:
+				player_rectangle.x -= 4
 
 		# Quit game
 		if event.type == pygame.QUIT:
