@@ -27,19 +27,35 @@ player_rectangle = player_surface.get_rect(center = (resolution[0]/2,resolution[
 player_vert_vel = 0
 player_vert_acc = 0.9
 
+## Controls
+move_left = False
+move_right = False
+
 
 
 # Main loop
 while True:
 	# Event loop
 	for event in pygame.event.get():
+		# Key press
 		if event.type == pygame.KEYDOWN:
 			# Jump
 			if event.key == pygame.K_SPACE and player_rectangle.bottom == placeholder_ground_rectangle.top:
 				player_vert_vel = -20 
 			# Move left
 			if event.key == pygame.K_s:
-				player_rectangle.x -= 4
+				move_left = True
+			# Move right
+			if event.key == pygame.K_f:
+				move_right = True
+		
+		# Key release
+		if event.type == pygame.KEYUP:
+			# Move left
+			if event.key == pygame.K_s:
+				move_left = False
+			if event.key == pygame.K_f:
+				move_right = False
 
 		# Quit game
 		if event.type == pygame.QUIT:
@@ -47,12 +63,19 @@ while True:
 			exit()
 		
 	
-	# Player physics
+	# Player motion
+	## Gravity
 	player_vert_vel += player_vert_acc
 	player_rectangle.y += player_vert_vel
 	if player_rectangle.bottom > placeholder_ground_rectangle.top:
 		player_rectangle.bottom = placeholder_ground_rectangle.top
 		player_vert_vel = 0
+
+	## Movement
+	if move_left == True:
+		player_rectangle.x -= 5
+	if move_right == True:
+		player_rectangle.x += 5
 
 
 	# Render surfaces
