@@ -19,7 +19,7 @@ placeholder_ground_surface.fill((255,0,0))
 placeholder_ground_rectangle = placeholder_ground_surface.get_rect(topleft = (0,900))
 
 # Player
-player_surface = pygame.image.load("Assets\Player\playerIdle.png").convert_alpha()
+player_surface = pygame.transform.scale(pygame.image.load("Assets\Player\playerIdle.png").convert_alpha(), (256,256))
 player_rectangle = player_surface.get_rect(center = (resolution[0]/2,resolution[1]/2))
 
 player_vert_vel = 0
