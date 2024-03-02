@@ -37,15 +37,13 @@ player_rectangle = player_surface.get_rect(center = (resolution[0]/2,resolution[
 player_vert_vel = 0
 player_vert_acc = 0.9
 
-facing_left = False
-facing_right = True
-
-running = -1
-run_count = 0
-
 ## Controls
 move_left = False
 move_right = False
+
+## Animation
+run_frame_count = 0
+run_sprite_count = 0
 
 
 
@@ -77,8 +75,9 @@ while True:
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			exit()
+		
 	
-	# Player motion
+	# Player motion and animation
 	## Gravity
 	player_vert_vel += player_vert_acc
 	player_rectangle.y += player_vert_vel
@@ -87,35 +86,35 @@ while True:
 		player_vert_vel = 0
 
 	## Movement
-	if move_right == True or move_left == True:
-		run_count += 1
-		if run_count == 6:
-			running += 1
-			player_surface = player_run[running]
-			if running == 7:
-				running = -1
-			run_count = 0
-	
+	### Left
 	if move_left == True:
+		# Move left
 		player_rectangle.x -= 5
-		
-		# Face left
-		if facing_left == False:
-			player_surface = pygame.transform.flip(player_surface, True, False)
-			facing_left = True
-			facing_right = False
 
+		# Face left
+		if run_frame_count == 0:
+			player_surface = pygame.transform.flip(player_run[run_sprite_count], True, False)
+		run_frame_count += 1
+		if run_frame_count == 6:
+			run_sprite_count += 1
+			run_frame_count = 0
+		if run_sprite_count == 8:
+			run_sprite_count = 0
+
+	### Right
 	if move_right == True:
+		# Move right
 		player_rectangle.x += 5
 
 		# Face right
-		if facing_right == False:
-			player_surface = pygame.transform.flip(player_surface, True, False)
-			facing_right = True
-			facing_left = False
-	
-	if move_left == False and move_right == False:
-		player_surface = player_idle
+		if run_frame_count == 0:
+			player_surface = player_run[run_sprite_count]
+		run_frame_count += 1
+		if run_frame_count == 6:
+			run_sprite_count += 1
+			run_frame_count = 0
+		if run_sprite_count == 8:
+			run_sprite_count = 0
 
 
 	# Render surfaces
